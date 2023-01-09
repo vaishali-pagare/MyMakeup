@@ -1,0 +1,189 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default rounded borders and increase the bottom margin */ 
+    body {margin:0;}
+    .navbar {
+      width: 100%;
+      background-color:rgb(72, 5, 86);
+      
+    }
+    .panel-body:hover .img-responsive{
+      animation: shake 0.5s;
+
+      /* When the animation is finished, start again */
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes shake {
+      0% { transform: translate(1px, 1px) rotate(0deg); }
+      10% { transform: translate(-1px, -2px) rotate(-1deg); }
+      20% { transform: translate(-3px, 0px) rotate(1deg); }
+      30% { transform: translate(3px, 2px) rotate(0deg); }
+      40% { transform: translate(1px, -1px) rotate(1deg); }
+      50% { transform: translate(-1px, 2px) rotate(-1deg); }
+      60% { transform: translate(-3px, 1px) rotate(0deg); }
+      70% { transform: translate(3px, 1px) rotate(-1deg); }
+      80% { transform: translate(-1px, -1px) rotate(1deg); }
+      90% { transform: translate(1px, 2px) rotate(0deg); }
+      100% { transform: translate(1px, -2px) rotate(-1deg); }
+    }
+    
+      
+    /* Remove the jumbotron's default bottom margin */ 
+     .jumbotron {
+      margin-bottom: 0;
+      color:rgb(101, 8, 119);
+      font-family: sans-serif;
+      background-image: url("{%static 'wp1.jpg'%}");
+      height: 50%; 
+
+      /* Center and scale the image nicely */
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    
+
+    /* The dots/bullets/indicators */
+    .dot {
+      height: 15px;
+      width: 15px;
+      margin: 0 2px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.6s ease;
+    }
+
+    
+    .carousel-inner > .item > img,
+    .carousel-inner > .item > a > img {
+      width: 100%;
+      margin: auto;
+      height: 20%;
+    }
+    .abc{
+      background: linear-gradient(to right, #edb0c4,#f3d290,#edb0c4) ;
+      margin: 35px auto;
+    }
+    .panel{
+      margin: 30px auto;
+      border-radius: 50px;
+    }
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: grey;
+      padding: 25px;
+    }
+
+    
+  </style>
+</head>
+<body>
+
+<div class="jumbotron">
+  <div class="container text-center"> 
+      <h1>My Makeup </h1>      
+      <p>Perfect Makeup, Perfect Day, Perfect Mood</p>
+  </div>
+</div>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      {%if "uname" in request.session%}
+      <a class="navbar-brand" href="#">Welcome {{request.session.uname}}</a>
+      {%else%}
+      <a class="navbar-brand" href="#">My Makeup</a>
+      {%endif%}
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/"><span class="glyphicon glyphicon-home"> Home </span></a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-th"></span> Category 
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            {%for cat in cats%}
+            <li><a href="/ShowPrdt/{{cat.id}}">{{cat.category_name}}</a></li>
+            {%endfor%}
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {%if "uname" in request.session%}
+        <li><a href="/ShowAllCartItems"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+        <li><a href="/MyOrders"><span class="glyphicon glyphicon-shopping-cart"></span> Order</a></li>
+        <li><a href="/signout"><span class="glyphicon glyphicon-user"></span> Sign Out</a></li>
+        {%else%}
+        <li><a href="/login"><span class="glyphicon glyphicon-user"></span> Login</a></li>       
+        {%endif%}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+{%block content%}
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <div class="item active">
+      <img src="/media/Images/slide2.webp" alt="Chania" >
+    </div>
+
+    <div class="item">
+      <img src="/media/Images/slider-makeup1.jpg" alt="Chania">
+    </div>
+  <br>
+  
+  <div style="text-align:center">
+    <span class="dot"></span> 
+    <span class="dot"></span> 
+    
+  </div>
+</div>
+
+<div class="abc">
+<div class="container">    
+  <div class="row">
+    {%for prdt in prdts%}
+    <div class="col-sm-4">
+      <div class="panel">
+        <div class="panel-heading"><center><h4> {{prdt.pname}} </h4></center></div>
+        <div class="panel-body">
+          <center><a href="/ViewDetails/{{prdt.id}}"><img src="{{prdt.image.url}}" class="img-responsive" style="width:200px;height:200px" alt="Image"></a></center></div>
+        <div class="panel-footer">
+          <p><h4>&nbsp; &nbsp; Price: {{prdt.price}} /-</h4></p>
+        </div>
+      </div>
+    </div>
+    {%endfor%}
+  </div>>
+</div>
+</div><br><br>
+
+{%endblock%}
+
+</body>
+</html>

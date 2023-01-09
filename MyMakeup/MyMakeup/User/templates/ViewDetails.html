@@ -1,0 +1,102 @@
+{%extends "homepage.html"%}
+
+
+{%block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .a
+        {
+            color: black;
+            font-style: italic ;
+            font-family:"Poppins","sans-serif";
+            font-size: 30px; 
+            font-weight: 700;
+            -webkit-text-stroke: 1pt red;
+            
+        }
+        .b
+        {
+            color: rgb(12, 150, 145);
+            font-style: italic ;
+            font-family:"Poppins","sans-serif";
+            font-size: 30px;
+            font-weight: 700;
+        }
+        .c
+        {
+            color: black;
+            font-style: italic ;
+            font-family:"Poppins","sans-serif";
+            font-size: 20px;
+            font-weight: 700;  
+        }
+        .table{
+            height: 50%;
+            width: 50%;
+            border: 1;
+            border-style: dashed;
+            background: linear-gradient(to right, #edb0c4,#f3d290,#edb0c4) ;
+        }
+        .d{
+            font-size: 20px;
+            text-align: center;
+            font-family:"Poppins","sans-serif";
+            font-weight: bold;
+        }
+        .form-control
+        {
+            color: black;
+            background-color: rgb(225, 243, 165);
+            font-size: 17px; 
+            width: 70px;
+            height: 70%;
+        }
+        .abc{
+            background: linear-gradient(to right,#daaaf3,#f3d290,#daaaf3 ) ;
+        }
+    </style>
+</head>
+<body>
+   
+    <div class="abc">
+    <form method="post" action="/addToCart" >
+        {%csrf_token%}
+      <table class="table" align="center">
+      </br>
+          <th class="d">Product Details</th>
+          <tr><td rowspan="5" align="left"><img src="{{prdt.image.url}}" height="300px" width="300px"/></td></tr>
+          <tr><td class="a">{{prdt.pname}}</td></tr>
+            
+          <tr><td class="b">MRP: {{prdt.price}} /-</td></tr>
+            
+          <tr><td class="c">{{prdt.description}}</td></tr>
+                  
+          
+          <tr lign="right" ><td font-color="#008080" ><select name="qty" class="form-control">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+              </select></td></tr>
+          
+          <tr><td colspan="2" >
+            <button type="submit" class="btn btn-success">Add To Cart</button></td>
+              <td><input type="hidden" name="prdtid" value="{{prdt.id}}"/>
+              </td></tr>
+            </br>
+      </table>
+    </br>
+    </form>
+</div>
+</body>
+</html>
+
+
+{%endblock%}
